@@ -1,4 +1,6 @@
-import { setType } from "./database.js";
+import { setType, getTypes, database } from "./database.js";
+
+const types = getTypes()
 
 document.addEventListener(
     "change",
@@ -10,16 +12,18 @@ document.addEventListener(
 )
 
 export const Types = () => {
-    let html = `<ul class="type-list">
-    <li>
-    <input type="radio" name="type" value="1"/> Ring
-    </li>
-    <li>
-    <input type="radio" name="type" value="2"/> Earring
-    </li>
-    <li>
-    <input type="radio" name="type" value="3"/> Necklace
-    </li>
-    </ul>`
+    let html = `<ul class="type-list">`
+    for (const type of types) {
+        if (database.orderBuilder.typeId === type.id) {
+            html += `<li>
+            <input type="radio" name="type" value="${type.id}" checked/> ${type.type}
+            </li>`
+        } else {
+            html += `<li>
+            <input type="radio" name="type" value="${type.id}" /> ${type.type}
+            </li>`
+        }
+    }
+    html += `</ul>`
     return html
 }

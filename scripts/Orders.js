@@ -21,14 +21,18 @@ const buildOrderListItem = (order) => {
             return style.id === order.styleId
         }
     )
+
+    let name = "ring"
     let totalCost = foundMetal.price
     totalCost += foundSize.price
     totalCost += foundStyle.price
 
     if (order.typeId === 2) {
         totalCost = totalCost * 2
+        name = "earring"
     } else if (order.typeId === 3) {
         totalCost = totalCost * 4
+        name = "necklace"
     }
     
     let costString = totalCost.toLocaleString("en-US", {
@@ -37,7 +41,7 @@ const buildOrderListItem = (order) => {
     })
     
     return `<li>
-        Order #${order.id} cost ${costString}
+        Order #${order.id} cost ${costString} (${foundMetal.metal}, ${foundStyle.style}, ${foundSize.carets} caret ${name})
     </li>`
 }
 

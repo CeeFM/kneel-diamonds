@@ -5,7 +5,7 @@
     modules to get copies of the state.
 
 */
-const database = {
+export const database = {
     styles: [
         { id: 1, style: "Classic", price: 500 },
         { id: 2, style: "Modern", price: 710 },
@@ -24,6 +24,11 @@ const database = {
         { id: 3, metal: "24K Gold", price: 1258.9 },
         { id: 4, metal: "Platinum", price: 795.45 },
         { id: 5, metal: "Palladium", price: 1241.0 }
+    ],
+    types: [
+        { id: 1, type: "Ring"},
+        { id: 2, type: "Earring"},
+        { id: 3, type: "Necklace"}
     ],
     customOrders: [
         {
@@ -76,18 +81,26 @@ export const getOrders = () => {
     return database.customOrders.map(order => ({...order}))
 }
 
+export const getTypes = () => {
+    return database.types.map(type => ({...type}))
+}
+
 export const setMetal = (id) => {
-    database.orderBuilder.metalId = id
+    database.orderBuilder.metalId = id;
+    document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
 export const setSize = (id) => {
     database.orderBuilder.sizeId = id
+    document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
 export const setStyle = (id) => {
     database.orderBuilder.styleId = id
+    document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
 export const setType = (id) => {
     database.orderBuilder.typeId = id
+    document.dispatchEvent(new CustomEvent("stateChanged"))
 }

@@ -1,4 +1,4 @@
-import { getStyles, setStyle } from "./database.js"
+import { getStyles, setStyle, database } from "./database.js"
 
 const styles = getStyles()
 
@@ -15,15 +15,19 @@ export const JewelryStyles = () => {
     let html = "<ul>"
 
     // Use .map() for converting objects to <li> elements
-    const listItems = styles.map(style => {
-        return `<li>
-        <input type="radio" name="style" value=${style.id} /> ${style.style}
+    for (const style of styles)
+        if(database.orderBuilder.styleId === style.id) {
+        html += `<li>
+        <input type="radio" name="style" id="style-${style.id}" value=${style.id} checked/> ${style.style}
         </li>
         `
-    });
-    // Join all of the strings in the array into a single string
-    html += listItems.join("")
-
+        } else {
+        html += `<li>
+        <input type="radio" name="style" id="style-${style.id}" value=${style.id} /> ${style.style}
+        </li>
+        `
+        }
+// Join all of the strings in the array into a single string
     html += "</ul>"
     return html
 }
